@@ -99,30 +99,31 @@ $(function() {
     });
     
     describe("New Feed Selection", function() {
-        /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         * 
-         * Also line 144 - line 154 verified element 0 called when loading instead
-         * of element 1 in var allFields array in app.js
-         * 
-         */
+        
        
         var firstFeed;
         var secondFeed;
-
+        $('.feed') . empty();
         beforeEach(function(done) {
+
+
+           // 1 - Load feed 0
             loadFeed(0, function() {
+                // 2 - Use callback from step 1 to save heading text
                 firstFeed = $('.entry').find("h2")[0].innerText;
-            });
-            loadFeed(1, function() {
-                secondFeed = $('.entry').find("h2")[0].innerText;
-                done();
+
+
+               // 2 - Use callback from step 1  to load feed 1
+                loadFeed(1, function() {
+                    secondFeed = $('.entry').find("h2")[0].innerText;
+                    // 3 - Use callback from step 2 to run done();
+                    done();
+                });
             });
         });
-
         
-        it("ensures content changes", function(done) {
+         it("ensures content changes", function(done) {
+            // 4 - Compare feeds from steps 1 and 2
             expect(firstFeed).not.toEqual(secondFeed);
             done();
         });
